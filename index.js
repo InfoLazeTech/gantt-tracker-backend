@@ -5,7 +5,12 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // Allow all origins by default
+app.use(cors({
+    origin: [
+        'https://gantt-product-tracker.vercel.app'
+    ],
+    credentials: true
+})); // Allow all origins by default
 
 const recipeRoutes = require('./Routers/recipe.routes');
 const processRoutes = require('./Routers/process.routes');
