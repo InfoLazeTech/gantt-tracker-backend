@@ -1,5 +1,5 @@
-const express = require('express'); 
-const mongoose =require('mongoose')
+const express = require('express');
+const mongoose = require('mongoose')
 require('dotenv').config();
 const cors = require('cors');
 
@@ -7,10 +7,12 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     origin: [
-        'https://gantt-product-tracker.vercel.app'
+        'https://gantt-product-tracker.vercel.app',
+        'http://localhost:5173',
     ],
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
     credentials: true
-})); // Allow all origins by default
+}));
 
 const recipeRoutes = require('./Routers/recipe.routes');
 const processRoutes = require('./Routers/process.routes');
@@ -32,6 +34,6 @@ mongoose.connect(process.env.MONGO_URL)
         console.log('❌ MongoDB Connection Error: ', err);
     });
 
-app.listen(PORT, ()=> {
+app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 }) 
