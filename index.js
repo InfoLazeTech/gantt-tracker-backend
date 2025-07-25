@@ -22,7 +22,7 @@ const adminRoutes = require('./Routers/auth.route');
 app.use('/api', recipeRoutes);
 app.use('/api', processRoutes);
 app.use('/api', itemRoutes);
-app.use('/admin',adminRoutes)
+app.use('/api',adminRoutes)
 app.get('/', (req, res) => {
     res.send('Hello Backend')
 });
