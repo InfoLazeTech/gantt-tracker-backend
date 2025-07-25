@@ -17,11 +17,12 @@ app.use(cors({
 const recipeRoutes = require('./Routers/recipe.routes');
 const processRoutes = require('./Routers/process.routes');
 const itemRoutes = require('./Routers/item.routes');
+const adminRoutes = require('./Routers/auth.route');
 
 app.use('/api', recipeRoutes);
 app.use('/api', processRoutes);
 app.use('/api', itemRoutes);
-
+app.use('/admin',adminRoutes)
 app.get('/', (req, res) => {
     res.send('Hello Backend')
 });
