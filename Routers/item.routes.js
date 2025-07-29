@@ -7,5 +7,6 @@ router.post('/item', itemController.createItem);
 router.put('/item/:itemId', itemController.updateItem);
 router.put('/item/:itemId/process/:processId', itemController.updateProcessItem);
 router.delete('/item/:itemId', itemController.deleteItem);
+router.get('/checkItem', itemController.getItemByReference);
 
 module.exports = router;

@@ -104,7 +104,7 @@ exports.updateItem = async (req, res) => {
 
 
         const updatedItem = await Item.findOneAndUpdate(
-            {itemId:itemId},
+            { itemId: itemId },
             {
                 customerName,
                 PONumber,
@@ -129,9 +129,9 @@ exports.updateItem = async (req, res) => {
 exports.updateProcessItem = async (req, res) => {
     try {
         const { itemId, processId } = req.params;
-        console.log("itemId",itemId);
-        console.log("processId",processId);
-        
+        console.log("itemId", itemId);
+        console.log("processId", processId);
+
         const { startDateTime, endDateTime } = req.body;
 
         const updatedItem = await Item.findOneAndUpdate(
@@ -168,5 +168,33 @@ exports.deleteItem = async (req, res) => {
         res.status(200).json({ message: 'Item deleted successfully' });
     } catch (err) {
         res.status(400).json({ error: err.message })
+    }
+};
+
+
+exports.getItemByReference = async (req, res) => {
+    try {
+        const { PONumber, RefNumber } = req.query;
+
+        if (!PONumber && !RefNumber) {
+            return res.status(400).json({ message: "PONumber or RefNumber is required." });
+        }
+
+        const query = {};
+        if (PONumber) query.PONumber = PONumber;
+        if (RefNumber) query.RefNumber = RefNumber;
+
+        const item = await Item.findOne(query)
+            .populate('recipeId')           // optionally populate recipe
+            .populate('processes.processId'); // optionally populate processes
+
+        if (!item) {
+            return res.status(404).json({ message: "Item not found." });
+        }
+
+        res.json(item);
+    } catch (error) {
+        console.error("Error fetching item:", error);
+        res.status(500).json({ message: "Server error." });
     }
 };
