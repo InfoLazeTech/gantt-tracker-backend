@@ -105,6 +105,7 @@ exports.updateItem = async (req, res) => {
         }
       }
     }
+    
 
     // Get existing item from DB
     const existingItem = await Item.findOne({ itemId });
