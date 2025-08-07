@@ -104,8 +104,7 @@ exports.updateItem = async (req, res) => {
             .json({ error: "Invalid processId in processes." });
         }
       }
-    }
-    
+    }    
 
     // Get existing item from DB
     const existingItem = await Item.findOne({ itemId });
